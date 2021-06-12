@@ -370,6 +370,7 @@ namespace JwtTest.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "User")]
 		public async Task<IActionResult> CreateOrder(OrderModel model)
 		{
 			if (!ModelState.IsValid)

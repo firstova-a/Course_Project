@@ -2,59 +2,69 @@
 
 
 <h4>Все заказы</h4>
+@if (User.IsInRole("User"))
+{
+    <div class="border-left">
+        <p><a class="btn btn-primary" asp-action="CreateOrder">Добавить</a></p>
+    </div>
+}
 
-<div class="border-left">
-	<p><a class="btn btn-primary" asp-action="CreateOrder">Добавить</a></p>
-</div>
 
 <table class="table">
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td>
-					<br><b><i>Номер: </i><u>@Html.DisplayFor(modelItem => item.Id)</u></b><br>
-					<br><b><i>Описание:</i></b><br/>
-					<pre>@Html.DisplayFor(modelItem => item.Description)<br></pre>
-					<br><b><i>Похожие работы:</i></b><br/>
-					<pre>@Html.DisplayFor(modelItem => item.Content)<pre />
-					<b><i>Предлагаемый срок окончания работ:</i></b> @Html.DisplayFor(modelItem => item.DeadLine)<br />
-					<b><i>Статус:</i></b> @Html.DisplayFor(modelItem => item.OrderStatus)<br />
-					<b><i>Цена:</i></b> @Html.DisplayFor(modelItem => item.Price)<br />
-					<b><i>Условия приняты:</i></b> @Html.DisplayFor(modelItem => item.Accepted)<br />
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <br><b><i>Номер: </i><u>@Html.DisplayFor(modelItem => item.Id)</u></b><br>
+                    <br><b><i>Описание:</i></b><br />
+                    <pre>@Html.DisplayFor(modelItem => item.Description)<br></pre>
+                    <br><b><i>Похожие работы:</i></b><br />
+                    <pre>@Html.DisplayFor(modelItem => item.Content)<pre />
+
+                    <b><i>Предлагаемый срок окончания работ:</i></b> @Html.DisplayFor(modelItem => item.DeadLine)<br />
+
+                    <b><i>Статус:</i></b> @Html.DisplayFor(modelItem => item.OrderStatus)<br />
+
+                    <b><i>Цена:</i></b> @Html.DisplayFor(modelItem => item.Price)<br />
+
+                    <b><i>Условия приняты:</i></b> @Html.DisplayFor(modelItem => item.Accepted)<br />
+
+
 
                     <div class="border-right">
 						@if ((item.OrderStatus != JwtTest.EF.ArtOrder.Status.rejected) && (item.OrderStatus != JwtTest.EF.ArtOrder.Status.done))
 						{
-							<p>@if (User.IsInRole("User"))
+                    <p>@if (User.IsInRole("User"))
 							{<a class="btn btn-dark" asp-action="EditOrder" asp-route-id="@item.Id">Изменить</a>} <a class="btn btn-danger" asp-action="DeleteOrder" asp-route-id="@item.Id">Удалить</a></p>
 							@if (User.IsInRole("Admin"))
 							{
 								@if(!item.Accepted)
 								{ 
-									<p><a class="btn btn-dark" asp-action="ConfirmOrder" asp-route-id="@item.Id">Внести условия и отправить клиенту на подтверждение</a> </p>
+                    <p><a class="btn btn-dark" asp-action="ConfirmOrder" asp-route-id="@item.Id">Внести условия и отправить клиенту на подтверждение</a> </p>
 								}
 							}
 							@if (User.IsInRole("User") && item.Confirm)
 							{
-								<p><a class="btn btn-dark" asp-action="AcceptOrder" asp-route-id="@item.Id">Подтвердить стоимость и сроки</a> </p>
+                    <p><a class="btn btn-dark" asp-action="AcceptOrder" asp-route-id="@item.Id">Подтвердить стоимость и сроки</a> </p>
 							}
 						}
 						@if(User.IsInRole("Admin") && item.Accepted && item.Confirm)
 						{ 
-							<p><a class="btn btn-dark" asp-action="AddFileToOrder" asp-route-id="@item.Id">Загрузить файл</a> </p>
+                    <p><a class="btn btn-dark" asp-action="AddFileToOrder" asp-route-id="@item.Id">Загрузить файл</a> </p>
 						}
 						@if(item.OrderStatus == JwtTest.EF.ArtOrder.Status.done)
 						{
-							<dd class="col-sm-10">
-								<img src="/Account/OrderPicture?Id=@item.Id" alt="Заказ" height="200" />
+                    <dd class="col-sm-10">
+                    <img src="/Account/OrderPicture?Id=@item.Id" alt="Заказ" height="200" />
+
 							</dd>
 						}
                     <!--</div>
 					<div class="border-left">-->						
                     </div>
-				</td>
-			</tr>
-		}
-	</tbody>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

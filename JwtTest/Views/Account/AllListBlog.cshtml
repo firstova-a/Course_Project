@@ -1,0 +1,36 @@
+﻿@using System.Security.Claims
+@model IEnumerable<JwtTest.EF.Blog>
+
+
+@{
+    ClaimsIdentity cookieClaims = User.Identities.FirstOrDefault(cc => cc.AuthenticationType == "ApplicationCookie");
+    bool authenticated = cookieClaims != null && cookieClaims.IsAuthenticated;
+}
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <br><b><u>@Html.DisplayFor(modelItem => item.Title)</u></b><br>
+                    <b><i>Aвтор:</i></b> @Html.DisplayFor(modelItem => item.Author.Login) @Html.DisplayFor(modelItem => item.Time)<br />
+                    <img src="/Account/BlogPicture?username=@item.Title" alt="Изображение" height="400" />
+                    <br><b><i>Комментарий:</i></b>
+                    <pre>@Html.DisplayFor(modelItem => item.Comment)<pre />
+                    @if (authenticated)
+                    {
+                        Claim roleClaim = cookieClaims.Claims.FirstOrDefault(cc => cc.Type == cookieClaims.RoleClaimType);
+                        if (roleClaim.Value == "Admin")
+                        {
+<div class="border-left">
+<p><a class="btn btn-danger" asp-action="DeleteBlog" asp-route-id="@item.Id">Удалить</a></p>
+                            </div>
+                        }
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

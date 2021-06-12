@@ -1,0 +1,28 @@
+﻿@model IEnumerable<JwtTest.EF.Blog>
+
+<h4>Ваши записи</h4>
+
+<div class="border-left">
+    <p><a class="btn btn-primary" asp-action="CreateBlog">Добавить</a></p>
+</div>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <br><b><u>@Html.DisplayFor(modelItem => item.Title)</u></b><br>
+                    <b><i>Aвтор:</i></b> @Html.DisplayFor(modelItem => item.Author.Login) @Html.DisplayFor(modelItem => item.Time)<br />
+                    <img src="/Account/BlogPicture?username=@item.Title" alt="Изображение" height="400" />
+                    <br><b><i>Комментарий:</i></b>
+                    <pre>@Html.DisplayFor(modelItem => item.Comment)<pre />
+                    
+<div class="border-left">
+<p><a class="btn btn-danger" asp-action="DeleteBlog" asp-route-id="@item.Id">Удалить</a></p>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

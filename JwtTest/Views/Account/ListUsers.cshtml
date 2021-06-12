@@ -1,0 +1,51 @@
+﻿@model IEnumerable<JwtTest.EF.Person>
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Avatar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactEmail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="/Account/Avatar?username=@item.Login" alt="Аватар" height="20" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactEmail)
+                </td>
+                <td>
+                    <a class="nav-link text-dark" asp-action="EditUser" asp-route-id="@item.Id">Редактировать</a>
+                </td>
+                <td>
+                    <a class="nav-link text-dark" asp-action="UserDetails" asp-route-id="@item.Id">Информация</a>
+                </td>
+                <td>
+                    <a class="nav-link text-dark" asp-action="DeleteUser" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

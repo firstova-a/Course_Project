@@ -10,7 +10,7 @@ namespace JwtTest.EF
 {
     public class JwtContext:DbContext
     {
-        public DbSet<Art> Arts { get; set; }
+       
         public DbSet<ArtOrder> Orders { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Blog> Blogs { get; set; }

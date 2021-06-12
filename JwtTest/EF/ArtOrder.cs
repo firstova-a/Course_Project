@@ -15,7 +15,7 @@ namespace JwtTest.EF
 		public DateTime DeadLine { get; set; }
 		public string PathToFile { get; set; }
 		public virtual Person Customer { get; set; }
-		public virtual List<Art> Arts { get; set; }
+
 		public bool Confirm { get; set; }
 		public bool Accepted { get; set; }
 

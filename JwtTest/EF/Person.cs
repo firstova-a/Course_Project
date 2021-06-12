@@ -19,7 +19,7 @@ namespace JwtTest.EF
         public string ContactEmail { get; set; }
         public UserRole Role { get; set; }
         public string Avatar { get; set; }
-        public virtual List<Art> Arts { get; set; }
+
         public virtual List<ArtOrder> Orders { get; set; }
     }
 }

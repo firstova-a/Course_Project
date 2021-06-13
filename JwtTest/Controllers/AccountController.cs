@@ -111,7 +111,8 @@ namespace JwtTest.Controllers
 				PasswordHash = Argon2.Hash(password),
 				ContactEmail = email,
 				Role = role,
-				Avatar = randomFile
+				Avatar = randomFile,
+				IsActive = true
 			};
 			await context.People.AddAsync(person);
 			await context.SaveChangesAsync();
@@ -222,6 +223,11 @@ namespace JwtTest.Controllers
 				ModelState.AddModelError("Username", "Неверное имя пользователя или пароль");
 				return View(model);
 			}
+			else if (!person.IsActive)
+			{
+				ModelState.AddModelError("Username", "Этот пользователь удален администратором");
+				return View(model);
+			}
 			await Authenticate(person.Login, person.Role);
 			return Redirect("/Home/Index");
 		}
@@ -328,7 +334,7 @@ namespace JwtTest.Controllers
 			Person person = context.People.Find(id);
 			if (person != null)
 			{
-				context.People.Remove(person);
+				person.IsActive = false;				
 				await context.SaveChangesAsync();
 			}
 			return Redirect("ListUsers");

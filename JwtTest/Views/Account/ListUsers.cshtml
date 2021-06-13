@@ -43,7 +43,8 @@
                     <a class="nav-link text-dark" asp-action="UserDetails" asp-route-id="@item.Id">Информация</a>
                 </td>
                 <td>
-                    <a class="nav-link text-dark" asp-action="DeleteUser" asp-route-id="@item.Id">Удалить</a>
+                   @if (item.IsActive)
+                   {<a class="nav-link text-dark" asp-action="DeleteUser" asp-route-id="@item.Id">Удалить</a>}
                 </td>
             </tr>
         }

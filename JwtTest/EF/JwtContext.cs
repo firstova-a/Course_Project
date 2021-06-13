@@ -24,7 +24,7 @@ namespace JwtTest.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Person>().HasData(new Person() { Id = 1, Login = "admin", PasswordHash = Argon2.Hash("admin"), Role = UserRole.Admin });
+            modelBuilder.Entity<Person>().HasData(new Person() { Id = 1, Login = "admin", PasswordHash = Argon2.Hash("admin"), Role = UserRole.Admin, IsActive = true });
         }
     }
 }

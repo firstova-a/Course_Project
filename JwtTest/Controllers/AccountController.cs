@@ -141,13 +141,13 @@ namespace JwtTest.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterModel model)
 		{
-			if (!ModelState.IsValid)
+			if (!ModelState.IsValid )
 				return View(model);
 			if (await RegisterUser(model.Username, model.Password, model.Email, UserRole.User, model.Avatar))
 				return Redirect("/Home/Index");
 			else
 			{
-				ModelState.AddModelError("Username", "Данное имя уже используется");
+				ModelState.AddModelError("Username", "Данное имя уже используется или пароли не совпадают");
 				return (View(model));
 			}
 		}

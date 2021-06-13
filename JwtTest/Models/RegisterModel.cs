@@ -19,11 +19,12 @@ namespace JwtTest.Models
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", ErrorMessage ="Пароль должен быть не менее 8 символов, содержать 1 цифру и 1 заглавную и прописную букву")]
         public string Password { get; set; }
         [DisplayName("Потдвердите Пароль")]
+       
         [Required(ErrorMessage = "Подтверждение пароля является обязательным")]
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$", ErrorMessage = "Пароль должен быть не менее 8 символов, содержать 1 цифру и 1 заглавную и прописную букву")]
-        
-        
+        [Compare("Password", ErrorMessage = "Пароли не совпали")]
+
         public string ConfirmPassword { get; set; }
         [DisplayName("E-mail:")]
         [Required(ErrorMessage = "E-mail является обязательным")]
